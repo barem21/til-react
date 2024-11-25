@@ -1,0 +1,24 @@
+@import "value";
+@import "mixins";
+
+.wrap {
+  @include flex-center;
+  @include border-fn(1px, #222);
+  position: relative;
+  width: $basic-width;
+  min-width: $min-width;
+  .notice {
+    width: $notice-width;
+    ul {
+      li {
+        background-color: $width-bg;
+      }
+    }
+  }
+  .slide {
+    width: $slide-width;
+  }
+  .banner {
+    width: $banner-width;
+  }
+}

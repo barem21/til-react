@@ -1,0 +1,18 @@
+main {
+  background: #ddd;
+}
+
+.layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background-color: #ccc;
+}
+.layout div {
+  width: 33.3%;
+  padding: 50px 0px;
+  text-align: center;
+  background-color: #eee;
+}
