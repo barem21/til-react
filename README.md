@@ -65,7 +65,7 @@ createRoot(document.getElementById("root")).render(
 
 - /pages/IndexPage.jsx 를 대상으로 복습
 - `/src/styles` 폴더 생성
-- `/src/styles/pages`, `/src/styles/componetns` 폴더 생성
+- `/src/styles/pages`, `/src/styles/components` 폴더 생성
 
 ## 3.1. IndexPage.jsx를 위한 css
 
