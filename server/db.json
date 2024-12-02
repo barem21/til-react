@@ -1,0 +1,14 @@
+{
+  "todos": [
+    {
+      "id": "2",
+      "title": "postman 공부",
+      "content": "사용법을 공부하자"
+    },
+    {
+      "id": "3",
+      "title": "postman post 테스트",
+      "content": "등록해 봅시다!"
+    }
+  ]
+}
