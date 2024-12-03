@@ -1,4 +1,26 @@
 {
+  "member": [
+    {
+      "id": "2",
+      "email": "test2@test.com",
+      "pw": "5678"
+    },
+    {
+      "id": "eafc",
+      "email": "test@gmail.com",
+      "pw": "1234"
+    },
+    {
+      "id": "a0ab",
+      "email": "test@nate.com",
+      "pw": "123456"
+    },
+    {
+      "id": "f36b",
+      "email": "test@naver.com",
+      "pw": "12131212"
+    }
+  ],
   "todos": [
     {
       "id": "2",
@@ -9,6 +31,64 @@
       "id": "3",
       "title": "postman post 테스트",
       "content": "등록해 봅시다!"
+    }
+  ],
+  "diaries": [
+    {
+      "title": "오늘의 날씨는?",
+      "date": "2024-12-03",
+      "content": "춥다고 했는데 별로 안춥네 .. -ㅂ-!!",
+      "mood": "3",
+      "weather": "1",
+      "id": "c1cd"
+    },
+    {
+      "title": "아이고 허리야~",
+      "date": "2024-12-02",
+      "content": "콩 자루 들었더니 허리가 아프구만~",
+      "mood": "4",
+      "weather": "2",
+      "id": "83a1"
+    },
+    {
+      "title": "다이어리 등록하기?!",
+      "date": "2024-12-01",
+      "content": "등록하기 .. 잘되남? =ㅅ=;;;",
+      "mood": "0",
+      "weather": "3",
+      "id": "071a"
+    },
+    {
+      "id": "b311",
+      "title": "미리 크리스마스~",
+      "date": "2024-12-24",
+      "content": "미리크리~ 온누리에 축복을!",
+      "mood": "1",
+      "weather": "3"
+    },
+    {
+      "id": "41b7",
+      "title": "감기 조심하세요~",
+      "date": "2024-12-04",
+      "content": "독감 조심합시다!",
+      "mood": "2",
+      "weather": "1"
+    },
+    {
+      "id": "0261",
+      "title": "컴포넌트는 다 빼라?!",
+      "date": "2024-12-25",
+      "content": "외부로 다 빼서 관리합시다 ...",
+      "mood": "3",
+      "weather": "2"
+    },
+    {
+      "title": "수정 테스트",
+      "date": "2024-12-03",
+      "content": "수정 테스트입니다...?!",
+      "mood": "0",
+      "weather": "0",
+      "id": "99ad"
     }
   ]
 }
