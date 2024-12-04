@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
+import { deleteMember, getMembers } from "../apis/member";
+import { API_URL, axiosInstance } from "../apis/config";
 
 const Member = () => {
-  //api url
-  const API_URL = "http://localhost:5000/member";
-
   //초기값
   const initData = {
     email: "",
@@ -21,6 +20,33 @@ const Member = () => {
   const [selectUser, setSelectUser] = useState(selectData); //선택된 회원 관리
   const [isEdit, setIsEdit] = useState(false); //회원 정보수정중이냐 아니냐
 
+  //회원 추가
+  const postMember = async _item => {
+    //console.log(_item);
+    try {
+      await axiosInstance.post(API_URL, _item);
+      callApiMember(); //회원목록 다시 가져오기
+      setFormData(initData);
+      setIsEdit(false);
+      alert("추가되었습니다.");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //회원 수정
+  const putMember = async _item => {
+    //console.log(_item);
+    try {
+      await axiosInstance.put(`${API_URL}/${_item.id}`, _item);
+      callApiMember(); //회원목록 다시 가져오기
+      setIsEdit(false);
+      alert("수정되었습니다.");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   //이벤트 핸들러 함수(회원정보 등록 input에 입력값이 있으면 계속 리랜더링)
   const handleChange = e => {
     const { name, value } = e.target;
@@ -36,7 +62,7 @@ const Member = () => {
   //등록 폼 전송
   const handleSubmit = e => {
     e.preventDefault(); //새로고침 방지(form 전송방지)
-    postMember({ ...formData });
+    postMember({ ...formData }, setMemberList);
   };
 
   //수정 폼 전송
@@ -45,68 +71,25 @@ const Member = () => {
     putMember({ ...selectUser });
   };
 
-  //API 매서드
-  //회원 전체목록
-  const getMembers = async () => {
-    try {
-      const res = await fetch(API_URL);
-      const data = await res.json();
-      //console.log(data);
-      setMemberList(data);
-    } catch (error) {
-      console.log(error);
-    }
+  //호출하면서 호출결과를 useState 업데이트 반영하기
+  const callApiMember = async () => {
+    const result = await getMembers();
+    setMemberList(result);
   };
 
-  const getMmeber = () => {};
-
-  //회원 추가
-  const postMember = async item => {
-    //console.log(item);
-    try {
-      await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(item),
-      });
-      getMembers(); //회원목록 다시 가져오기
-      setFormData(initData);
-      setIsEdit(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  //회원 수정
-  const putMember = async item => {
-    //console.log(item);
-    try {
-      await fetch(`${API_URL}/${item.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(item),
-      });
-      getMembers(); //회원목록 다시 가져오기
-      setSelectUser(initData); //초기화
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  //회원 삭제
-  const deleteMember = async _id => {
-    try {
-      await fetch(`${API_URL}/${_id}`, { method: "DELETE" });
-      alert("삭제 완료!");
-      getMembers(); //목록 다시 가져오기
-    } catch (error) {
-      console.log(error);
+  const callApiDelete = async _id => {
+    const result = await deleteMember(_id);
+    if (result === "success") {
+      alert("삭제되었습니다.");
+      callApiMember(); //회원목록 다시 불러오기
+    } else {
+      alert("다시 시도하세요.");
     }
   };
 
   //화면 그려지면 처음 한번 실행
   useEffect(() => {
-    getMembers(); //회원목록 출력
+    callApiMember(); //회원목록 출력
     return () => {};
   }, []);
   return (
@@ -118,7 +101,7 @@ const Member = () => {
             return (
               <div key={item.id}>
                 {item.id} : {item.email}
-                <button type="button" onClick={() => deleteMember(item.id)}>
+                <button type="button" onClick={() => callApiDelete(item.id)}>
                   삭제
                 </button>
                 <button

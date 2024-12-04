@@ -1,24 +1,19 @@
 {
   "member": [
     {
-      "id": "2",
-      "email": "test2@test.com",
-      "pw": "5678"
+      "id": "41bb",
+      "email": "test@naver.com",
+      "pw": "1234"
     },
     {
-      "id": "eafc",
+      "id": "1721",
       "email": "test@gmail.com",
       "pw": "1234"
     },
     {
-      "id": "a0ab",
+      "id": "d6d6",
       "email": "test@nate.com",
-      "pw": "123456"
-    },
-    {
-      "id": "f36b",
-      "email": "test@naver.com",
-      "pw": "12131212"
+      "pw": "8789"
     }
   ],
   "todos": [
