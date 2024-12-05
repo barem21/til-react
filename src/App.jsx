@@ -1,17 +1,19 @@
+import { useState, lazy, Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import HomePage from "./pages/Index";
-import AboutPage from "./pages/about/Index";
-import TeamPage from "./pages/about/Team";
-import ServicePage from "./pages/service/Index";
-import NowPage from "./pages/service/Now";
-import BlogPage from "./pages/blog/Index";
-import BlogListPage from "./pages/blog/List";
-import BlogDetailPage from "./pages/blog/Detail";
-import NotFound from "./pages/404";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import { useState } from "react";
-import Layout from "./pages/blog/Layout";
+import Loading from "./components/Loading";
+
+const LazyHeader = lazy(() => import("./components/Header"));
+const LazyFooter = lazy(() => import("./components/Footer"));
+const LazyHomePage = lazy(() => import("./pages/Index"));
+const LazyAboutPage = lazy(() => import("./pages/about/Index"));
+const LazyTeamPage = lazy(() => import("./pages/about/Team"));
+const LazyServicePage = lazy(() => import("./pages/service/Index"));
+const LazyNowPage = lazy(() => import("./pages/service/Now"));
+const LazyBlogPage = lazy(() => import("./pages/blog/Index"));
+const LazyBlogListPage = lazy(() => import("./pages/blog/List"));
+const LazyBlogDetailPage = lazy(() => import("./pages/blog/Detail"));
+const LazyLayout = lazy(() => import("./pages/blog/Layout"));
+const LazyNotFound = lazy(() => import("./pages/404"));
 
 //MockUp Data
 const BlogDatas = [
@@ -50,41 +52,108 @@ function App() {
 
   return (
     <Router>
-      <Header />
+      <LazyHeader />
       <main>
         <Routes>
+          {/* 로딩창 구현 */}
           <Route
             path="/"
             element={
-              <HomePage title={"좋은회사"} year={2024} version={"v1.0"} />
+              <Suspense fallback={<Loading />}>
+                <LazyHomePage title={"좋은회사"} year={2024} version={"v1.0"} />
+              </Suspense>
             }
-          />
+          ></Route>
 
           <Route path="/about">
-            <Route index element={<AboutPage />} />
-            <Route path="team" element={<TeamPage />} />
+            <Route
+              index
+              element={
+                <Suspense fallback={<Loading />}>
+                  <LazyAboutPage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="team"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <LazyTeamPage />
+                </Suspense>
+              }
+            />
           </Route>
 
           <Route path="/service">
-            <Route index element={<ServicePage />} />
-            <Route index path="now" element={<NowPage />} />
+            <Route
+              index
+              element={
+                <Suspense fallback={<Loading />}>
+                  <LazyServicePage />
+                </Suspense>
+              }
+            />
+            <Route
+              index
+              path="now"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <LazyNowPage />
+                </Suspense>
+              }
+            />
           </Route>
 
-          <Route path="/blog" element={<Layout />}>
-            <Route index element={<BlogPage data={BlogDatas} />} />
-            <Route path="list" element={<BlogListPage />} />
-            <Route path=":id" element={<BlogDetailPage />} />
+          <Route
+            path="/blog"
+            element={
+              <Suspense fallback={<Loading />}>
+                <LazyLayout />
+              </Suspense>
+            }
+          >
+            <Route
+              index
+              element={
+                <Suspense fallback={<Loading />}>
+                  <LazyBlogPage data={BlogDatas} />
+                </Suspense>
+              }
+            />
+            <Route
+              path="list"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <LazyBlogListPage />
+                </Suspense>
+              }
+            />
+            <Route
+              path=":id"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <LazyBlogDetailPage />
+                </Suspense>
+              }
+            />
           </Route>
           {/*<Route path="/blog/:id" element={<BlogDetailPage />} />*/}
 
           {/* 존재하지 않는 페이지 */}
-          <Route path="*" element={<NotFound />} />
+          <Route
+            path="*"
+            element={
+              <Suspense fallback={<Loading />}>
+                <LazyNotFound />
+              </Suspense>
+            }
+          />
         </Routes>
       </main>
-      <Footer>
+      <LazyFooter>
         <p>Copyright 2024 by hong. All right Reserved.</p>
         {isMember ? <p>로그인 상태입니다.</p> : <p>로그아웃 상태입니다.</p>}
-      </Footer>
+      </LazyFooter>
     </Router>
   );
 }
