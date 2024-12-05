@@ -16,7 +16,8 @@
     "moment": "^2.30.1",
     "prop-types": "^15.8.1",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.0.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
@@ -32,7 +33,7 @@
     "globals": "^15.11.0",
     "prettier": "^3.3.3",
     "sass": "^1.81.0",
-    "vite": "^5.4.10",
-    "proxy": "http://192.168.0.66"
-  }
+    "vite": "^5.4.10"
+  },
+  "proxy": "http://192.168.0.66"
 }

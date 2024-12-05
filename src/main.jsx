@@ -1,10 +1,10 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import Member from "./member/Member";
+import App from "./App";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <Member />
+    <App />
   </StrictMode>,
 );
