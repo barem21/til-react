@@ -1,3 +1,13 @@
+/* 글꼴 설정 */
+@font-face{
+  font-family: "asdf";
+  src:url("/chab.ttf");
+}
+@font-face{
+  font-family:"qwer";
+  src:url("/ddag.ttf");
+}
+
 :root {
   --primary-color: #000000;
   --secondary-color: #0000ff;
@@ -21,6 +31,7 @@ html,
 body {
   font-size: var(--font-size-base);
   color: var(--primary-color);
+  font-family: "qwer",sans-serif;
 }
 /* 웹서비스 개발시 권장함.(개인적으로) */
 html,
