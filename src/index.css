@@ -1,11 +1,11 @@
 /* 글꼴 설정 */
-@font-face{
+@font-face {
   font-family: "asdf";
-  src:url("/chab.ttf");
+  src: url("/chab.ttf");
 }
-@font-face{
-  font-family:"qwer";
-  src:url("/ddag.ttf");
+@font-face {
+  font-family: "qwer";
+  src: url("/ddag.ttf");
 }
 
 :root {
@@ -31,7 +31,7 @@ html,
 body {
   font-size: var(--font-size-base);
   color: var(--primary-color);
-  font-family: "qwer",sans-serif;
+  /* font-family: "qwer",sans-serif; */
 }
 /* 웹서비스 개발시 권장함.(개인적으로) */
 html,

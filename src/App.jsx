@@ -1,160 +1,124 @@
-import { useState, lazy, Suspense } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Loading from "./components/Loading";
+import { useContext } from "react";
+import { UserInfoContext, UserInfoProvider } from "./contexts/UserInfoContent";
 
-const LazyHeader = lazy(() => import("./components/Header"));
-const LazyFooter = lazy(() => import("./components/Footer"));
-const LazyHomePage = lazy(() => import("./pages/Index"));
-const LazyAboutPage = lazy(() => import("./pages/about/Index"));
-const LazyTeamPage = lazy(() => import("./pages/about/Team"));
-const LazyServicePage = lazy(() => import("./pages/service/Index"));
-const LazyNowPage = lazy(() => import("./pages/service/Now"));
-const LazyBlogPage = lazy(() => import("./pages/blog/Index"));
-const LazyBlogListPage = lazy(() => import("./pages/blog/List"));
-const LazyBlogDetailPage = lazy(() => import("./pages/blog/Detail"));
-const LazyLayout = lazy(() => import("./pages/blog/Layout"));
-const LazyNotFound = lazy(() => import("./pages/404"));
+const Header = () => {
+  return (
+    <header>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <p>logo</p>
+        <nav>
+          {userInfo.userId === "" ? (
+            <div>
+              <button
+                type="button"
+                onClick={() =>
+                  setUserInfo({
+                    userId: "hong",
+                    userName: "길동",
+                    userRole: "member",
+                  })
+                }
+              >
+                로그인
+              </button>
+              <button type="button" onClick={() => {}}>
+                회원가입
+              </button>
+            </div>
+          ) : (
+            <div>
+              {userInfo.userName}님, 환영합니다.
+              <button
+                type="button"
+                onClick={() =>
+                  setUserInfo({ userId: "", userName: "", userRole: "guest" })
+                }
+              >
+                로그아웃
+              </button>
+              <button type="button" onClick={() => {}}>
+                정보수정
+              </button>
+            </div>
+          )}
+        </nav>
+      </div>
+    </header>
+  );
+};
 
-//MockUp Data
-const BlogDatas = [
-  {
-    id: "1",
-    title: "hello~",
-    cate: "design",
-    content: "안녕하시렵니까?",
-    date: "2024-12-05",
-  },
-  {
-    id: "2",
-    title: "hello world~",
-    cate: "coding",
-    content: "코딩 시작",
-    date: "2024-12-04",
-  },
-  {
-    id: "3",
-    title: "ready!",
-    cate: "error",
-    content: "에러 확인하기!",
-    date: "2024-12-03",
-  },
-  {
-    id: "4",
-    title: "omg!",
-    cate: "design",
-    content: "오 마이 갓!",
-    date: "2024-12-02",
-  },
-];
-
-function App() {
-  const [isMember, setIsMember] = useState(false);
+const Main = () => {
+  const { userInfo } = useContext(UserInfoContext);
 
   return (
-    <Router>
-      <LazyHeader />
-      <main>
-        <Routes>
-          {/* 로딩창 구현 */}
-          <Route
-            path="/"
-            element={
-              <Suspense fallback={<Loading />}>
-                <LazyHomePage title={"좋은회사"} year={2024} version={"v1.0"} />
-              </Suspense>
-            }
-          ></Route>
+    <main
+      style={{
+        margin: "40px 0px",
+        padding: "30px",
+        backgroundColor: "#f0f0f0",
+      }}
+    >
+      {userInfo.userId === "" ? (
+        <div>로그인이 필요합니다!</div>
+      ) : (
+        <>
+          <Character />
+          <Friend />
+          <Point />
+          <Map />
+          <Qna />
+        </>
+      )}
+      <div></div>
+    </main>
+  );
+};
 
-          <Route path="/about">
-            <Route
-              index
-              element={
-                <Suspense fallback={<Loading />}>
-                  <LazyAboutPage />
-                </Suspense>
-              }
-            />
-            <Route
-              path="team"
-              element={
-                <Suspense fallback={<Loading />}>
-                  <LazyTeamPage />
-                </Suspense>
-              }
-            />
-          </Route>
+const Footer = () => {
+  const { userInfo } = useContext(UserInfoContext);
+  return <footer>하단 {userInfo.userRole}</footer>;
+};
 
-          <Route path="/service">
-            <Route
-              index
-              element={
-                <Suspense fallback={<Loading />}>
-                  <LazyServicePage />
-                </Suspense>
-              }
-            />
-            <Route
-              index
-              path="now"
-              element={
-                <Suspense fallback={<Loading />}>
-                  <LazyNowPage />
-                </Suspense>
-              }
-            />
-          </Route>
+const Character = () => {
+  const { userInfo } = useContext(UserInfoContext);
+  return (
+    <div>
+      <div>{userInfo.userName} 님의 캐릭터 변경 서비스</div>
+      <ChoiceCharacter>캐릭터 종류 선택 서비스</ChoiceCharacter>
+    </div>
+  );
+};
+const ChoiceCharacter = () => {
+  const { userInfo } = useContext(UserInfoContext);
+  return <div>{userInfo.userName} 님의 캐릭터 종류 선택 서비스</div>;
+};
+const Friend = () => {
+  const { userInfo } = useContext(UserInfoContext);
+  return <div>{userInfo.userId} 님의 친구 관리 서비스</div>;
+};
+const Point = () => {
+  const { userInfo } = useContext(UserInfoContext);
+  return <div>{userInfo.userName} 님의 포인트 관리 서비스</div>;
+};
+const Map = () => {
+  const { userInfo } = useContext(UserInfoContext);
+  return <div>{userInfo.userId} 님의 지도 관리 서비스</div>;
+};
+const Qna = () => {
+  const { userInfo } = useContext(UserInfoContext);
+  return <div>{userInfo.userName} 님의 QA 관리 서비스</div>;
+};
 
-          <Route
-            path="/blog"
-            element={
-              <Suspense fallback={<Loading />}>
-                <LazyLayout />
-              </Suspense>
-            }
-          >
-            <Route
-              index
-              element={
-                <Suspense fallback={<Loading />}>
-                  <LazyBlogPage data={BlogDatas} />
-                </Suspense>
-              }
-            />
-            <Route
-              path="list"
-              element={
-                <Suspense fallback={<Loading />}>
-                  <LazyBlogListPage />
-                </Suspense>
-              }
-            />
-            <Route
-              path=":id"
-              element={
-                <Suspense fallback={<Loading />}>
-                  <LazyBlogDetailPage />
-                </Suspense>
-              }
-            />
-          </Route>
-          {/*<Route path="/blog/:id" element={<BlogDetailPage />} />*/}
-
-          {/* 존재하지 않는 페이지 */}
-          <Route
-            path="*"
-            element={
-              <Suspense fallback={<Loading />}>
-                <LazyNotFound />
-              </Suspense>
-            }
-          />
-        </Routes>
-      </main>
-      <LazyFooter>
-        <p>Copyright 2024 by hong. All right Reserved.</p>
-        {isMember ? <p>로그인 상태입니다.</p> : <p>로그아웃 상태입니다.</p>}
-      </LazyFooter>
-    </Router>
+function App() {
+  const { userInfo } = useContext(UserInfoContext);
+  return (
+    <div style={{ width: "1000px", margin: "0 auto" }}>
+      <UserInfoProvider>
+        <Header />
+        <Main />
+        <Footer />
+      </UserInfoProvider>
+    </div>
   );
 }
 
