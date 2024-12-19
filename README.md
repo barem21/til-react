@@ -295,7 +295,6 @@ const Qna = () => {
 };
 
 function App() {
-  const { userInfo } = useContext(UserInfoContext);
   return (
     <div style={{ width: "1000px", margin: "0 auto" }}>
       <UserInfoProvider>
