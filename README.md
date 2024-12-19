@@ -186,6 +186,7 @@ import { useContext } from "react";
 import { UserInfoContext, UserInfoProvider } from "./contexts/UserInfoContent";
 
 const Header = () => {
+  const { userInfo, setUserInfo } = useContext(UserInfoContext);
   return (
     <header>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
