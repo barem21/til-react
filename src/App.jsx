@@ -1,10 +1,14 @@
-import Counter from "./components/counter/Counter";
+import TodoAdd from "./components/todo/TodoAdd";
+import TodoList from "./components/todo/TodoList";
+import { TodoProvider } from "./contexts/todoProvider";
 
+//아래 provider에 의해서 state와 dispacth에 접근가능
 function App() {
   return (
-    <div>
-      <Counter />
-    </div>
+    <TodoProvider>
+      <TodoAdd />
+      <TodoList />
+    </TodoProvider>
   );
 }
 

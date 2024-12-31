@@ -1,25 +1,32 @@
-import { useReducer } from "react";
-import { counterReducer } from "../../modules/counter/counterReducer";
-import { counterInitialState } from "../../modules/counter/counterInitialState";
-import { add, minus, reset } from "../../modules/counter/counterActions";
+import { useContext } from "react";
+import {
+  CounterDispatchContext,
+  CounterStateContext,
+} from "../../contexts/counterContext";
 
 function Counter() {
-  const [countState, dispatch] = useReducer(
-    counterReducer,
-    counterInitialState,
-  );
+  //app전체의 context state
+  const state = useContext(CounterStateContext);
+
+  //app전체의 context dispatch
+  const dispatch = useContext(CounterDispatchContext);
+
+  if (!state || !dispatch) {
+    return <div>Provider가 설정되지 않았습니다.</div>;
+  }
+
   return (
     <div>
       <h1>Counter</h1>
       <div>
-        <h2>Counter : {countState.count}</h2>
-        <button type="button" onClick={() => dispatch(add())}>
+        <h2>Counter : {state.count}</h2>
+        <button type="button" onClick={() => dispatch({ type: "add" })}>
           증가
         </button>
-        <button type="button" onClick={() => dispatch(minus())}>
+        <button type="button" onClick={() => dispatch({ type: "minus" })}>
           감소
         </button>
-        <button type="button" onClick={() => dispatch(reset())}>
+        <button type="button" onClick={() => dispatch({ type: "reset" })}>
           초기화
         </button>
       </div>
